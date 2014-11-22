@@ -4,7 +4,7 @@
 ### 发起支付
 python端, 修改version2中的config文件
 
-···
+```
 import version2
 import json
 
