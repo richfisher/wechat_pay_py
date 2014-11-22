@@ -5,6 +5,17 @@
 python端, 修改version2中的config文件
 
 ```
+config = {
+    'appId': 'xxx',
+    'appSecret': 'xxx',
+    'paySignKey': 'xxx',
+    'partnerId': 'xxx',
+    'partnerKey': 'xxx',
+    'notify_url': 'xxx'
+}
+```
+
+```
 import version2
 import json
 
