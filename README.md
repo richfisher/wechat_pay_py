@@ -1,6 +1,59 @@
 # Wechat Pay For Python
-实现微信支付V2版。
+实现微信支付V2和V3。
 
+## 1. Wechat Pay V3
+### 发起支付
+python端, 修改version3中的config文件
+
+```
+config = {
+    'appId': '',
+    'Mchid': '',
+    'Key': '',
+    'notify_url': ''
+}
+```
+
+```
+import version3
+import json
+
+params = version3.build_form_by_params({
+    'body': 'test',
+    'out_trade_no': 'id',
+    'total_fee': '1',
+    'spbill_create_ip': '127.0.0.1',
+    'openid': ''
+    })
+
+json.dumps(params)
+```
+
+前端
+
+```
+var json_str = $.get(url)
+var params = JSON.parse(json_str)
+
+WeixinJSBridge.invoke('getBrandWCPayRequest', params, function(res){
+    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+    }
+});
+```
+
+
+### 验证notify
+python端
+
+```
+import version3
+
+version3.verify_notify_string(request_string)
+返回True或者False
+```
+
+
+## 2. Wechat Pay V2
 ### 发起支付
 python端, 修改version2中的config文件
 
