@@ -103,7 +103,7 @@ def notify_string_to_params(string):
     return params
 
 def verify_notify_string(string):
-    params = notify_string_to_params(string)
+    params = notify_xml_string_to_dict(string)
 
     notify_sign = params['sign']
     del params['sign']
@@ -111,3 +111,10 @@ def verify_notify_string(string):
     if build_sign(params) == notify_sign:
         return True
     return False
+
+def notify_xml_string_to_dict(string):
+    xml_data = xmltodict.parse(string)['xml']
+    params = {}
+    for k in xml_data:
+        params[k] = xml_data[k]
+    return params
