@@ -87,7 +87,7 @@ def build_form_by_prepay_id(prepay_id):
 
 def build_form_by_params(params):
     headers = {'Content-Type': 'application/xml'}
-    xml = build_unifiedorder(params)
+    xml = build_unifiedorder(params).encode('utf-8')
     response = requests.post('https://api.mch.weixin.qq.com/pay/unifiedorder', data=xml, headers=headers)
     response.encoding = 'utf-8'
     response_dict = xmltodict.parse(response.text)['xml']
