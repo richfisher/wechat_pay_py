@@ -45,11 +45,12 @@ def build_unifiedorder(params):
         'nonce_str': generate_random_string(),
         'trade_type': 'JSAPI',
         'body': params['body'],
+        'attach': params['attach'], #any other params that need transfer from wx side
         'out_trade_no': params['out_trade_no'],
         'total_fee': params['total_fee'],
         'spbill_create_ip': params['spbill_create_ip'],
         'notify_url': config['notify_url'],
-        'openid': params['openid']
+        'openid': params['openid'] #if `trade_type` == `APP`, remove this line.
     }
 
     base_params['sign'] = build_sign(base_params)
@@ -76,13 +77,15 @@ def dict_to_xml(params):
 
 def build_form_by_prepay_id(prepay_id):
     base_params = {
-        'appId': config['appId'],
-        'timeStamp': str(int(time.time())),
-        'nonceStr': generate_random_string(),
-        'package': "prepay_id=%s" % prepay_id,
-        'signType': "MD5"
+        'appid': config['appId'],
+        'partnerid': config['Mchid'],
+        'prepayid': prepay_id,
+        'timestamp': str(int(time.time())),
+        'noncestr': generate_random_string(),
+        'package': "Sign=WXPay",
+        #'signType': "MD5"
     }
-    base_params['paySign'] = build_sign(base_params)
+    base_params['sign'] = build_sign(base_params)
     return base_params
 
 def build_form_by_params(params):
